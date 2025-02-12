@@ -1,0 +1,34 @@
+O node js é uma ferramenta que permite rodar aplicações JS fora de um navegador web.
+
+Para utilizar o react é necessário baixar o node js, pois o react é uma pacote/biblioteca do node.
+
+npm = node packet manager (gerenciador de pacotes do node).
+
+O vite é uma feramenta de construção de frontend, além disso ela gera a possibilidade de termos um servidor local. Outra de suas funcionalidades
+é a capacidade de build, onde ela transforma varios arquivos de código em um só, por exemplo, redux os arquivos em um html, um css e um js,
+e também cria um template do seu projeto.
+
+npm create vite@latest . = usar o gerenciador de pacote do node, paara criar um pacote de vite pegaaando a ultima versão (latest) + local
+
+após isso, caso tenha algum arquivo dentro da pasta ele te da a opção de substituir ou ignorar
+
+Com isso, é possível selecionar qual framework será utilizado, vanilla no caso de ser tudo na mão, ou algum dos listados a baixo
+
+após isso pode-se selecionar a linguagem que será utilizada nesse framework
+
+ao realizar o comando, vários arquivos são criados automaticamente.
+
+um json é uma notação de objetos em JavaScript
+
+no json, estão todas as configurações do seu projeto, com isso é possível ver todas as tecnologias que foram utilizadas para confecção do projeto
+
+
+após criar um pacote vite em react js são pedidos dois comados, npm i (install), npm run dev
+
+npm install, serve para instalar todas as dependencias que estão no json contido na pasta em que vc está. Pois apesar de ter as configs, suas
+dependencias n vem instaladaas por padrão
+
+o comando npm run entra no arquivo json e busca pela chave escrita em sequencia do comando, neste caso o "dev" que irá rodar o vite
+
+após isso recebemos um url do vite que nos da a possibilidade de acessar uma aba com o template da tecnologia pedida atraves do comando de create
+
