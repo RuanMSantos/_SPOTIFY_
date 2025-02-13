@@ -119,4 +119,59 @@ A grande vantagem do react que é perceptível no seu próprio nome é a velocid
 A primeira coisa a se fazer no CSS é resetar os estilos, pois o navegador já trás algumas estilisações por padrão (user agent stylesheet).
 tira-se a margin, o padding e muda-se o box-sizing para border-box.
 
-TODO ARQUIVO DE CSS VAI TER O RESET POIS É EXTREMAMENTE IMPORTANTE
+TODO ARQUIVO DE CSS VAI TER O RESET POIS É EXTREMAMENTE IMPORTANTE.
+
+Quando no body você coloca o elemento color, ele se refere a cor da fonte de body.
+
+Caso vc queria que a cor do link siga o padrão da página sem ter que repetir o comando, pode-se usar o valor inherit, que diz para o
+elemento herdar a cor que ele deveria herdar por padrão.
+
+É no arquivo main.jsx que é importado o index.css, responsável pelas estilizações.
+
+Apesar de correto, não é uma boa prática não é correto identificar elementos através de id no css, e sim através de classes
+
+A forma correta de adicionar uma classe no html em aplicações jsx é usar o className, que funciona da mesma forma. Ele é utilizado pois
+a palavra class ja é reservada para o jsx.
+
+
+
+
+
+FLEX-BOX
+
+a propiredade align-itens altera a posição dos itens na vertical.
+a propriedade justify-content altera a posição dos itens na horizontal.
+justify-content: space-between -> coloca cada elemento em um canto distribuindo igualmente seu espaço.
+
+
+
+
+Uma forma muito boa de declarar uma classe dentro de um bloco no css é com a metodologia BEM (Blocks Elements Modifiers), que nos dá a 
+possibilidade de visualizar com mais facilidade o intuito daquela classe, ele é composto por:
+
+bloco__elemento--modificador
+
+Todos o componentes são importados no App.jsx que no fim é importado para main.jsx.
+
+O react permite que seja devolvido apenas um elemento, por isso caso queira retornar mais de um componente em react é necessário usar:
+
+Fragment, que são as tags vazias <></>.
+
+Na página, tem apenas um h1.
+
+Um problema no decorrer da aula é o elemento não estar pegando o espaço inteiro da tela, nesse caso, o root não está pegando todo espaço da
+tela disponível, e está bem pequeno.
+
+Para resolver esse problema, precisamos alterar o tamanho (height) do root. A propriedade que nos permite pegar 100% da tela é o vh (viewport)
+que nos permite pegar o tamanho da tela, porém uma nova propriedade que é mais efetiva é o svh, que é mais responsivo com dispositivos
+mobile por exemplo, onde a barra de navegação some ao rolar a tela.
+
+Para fazer o main pegar todo restante da tela. Primeiramente é necessário mudar o display do root para flex para abusar de uma propriedade.
+
+Agora é possível utilizar a propriedade flex, que tem várias funções, mas uma delas é usar o flex: 1, que permite que o item se expanda
+o máximo possível dentre o container pai.
+
+A propriedade flex: 1, será utilizada dentro do item que queremos expandir.
+
+Em css na declaração de nomes, palavras separadas são separadas por "-".
+
