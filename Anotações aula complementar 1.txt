@@ -1,0 +1,5 @@
+Todas as vezes que um arquivo é baixado ele não vem com a pasta node_modules, sem ela é impossível rodar algo.
+
+Toda vez que vc entrar em uma pasta que contém o package.json, é possível rodar o comando npm i, que vai entrar no arquivo de configs,
+package.json e baixar todas as dependencias criando assim a pasta node_modules e possibilitando rodar o projeto.
+

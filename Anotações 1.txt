@@ -1,0 +1,177 @@
+O node js é uma ferramenta que permite rodar aplicações JS fora de um navegador web.
+
+Para utilizar o react é necessário baixar o node js, pois o react é uma pacote/biblioteca do node.
+
+npm = node packet manager (gerenciador de pacotes do node).
+
+O vite é uma feramenta de construção de frontend, além disso ela gera a possibilidade de termos um servidor local. Outra de suas funcionalidades
+é a capacidade de build, onde ela transforma varios arquivos de código em um só, por exemplo, redux os arquivos em um html, um css e um js,
+e também cria um template do seu projeto.
+
+npm create vite@latest . = usar o gerenciador de pacote do node, paara criar um pacote de vite pegaaando a ultima versão (latest) + local
+
+após isso, caso tenha algum arquivo dentro da pasta ele te da a opção de substituir ou ignorar
+
+Com isso, é possível selecionar qual framework será utilizado, vanilla no caso de ser tudo na mão, ou algum dos listados a baixo
+
+após isso pode-se selecionar a linguagem que será utilizada nesse framework
+
+ao realizar o comando, vários arquivos são criados automaticamente.
+
+um json é uma notação de objetos em JavaScript
+
+no json, estão todas as configurações do seu projeto, com isso é possível ver todas as tecnologias que foram utilizadas para confecção do projeto.
+
+
+após criar um pacote vite em react js são pedidos dois comados, npm i (install), npm run dev.
+
+npm install, serve para instalar todas as dependencias que estão no json contido na pasta em que vc está. Pois apesar de ter as configs, suas
+dependencias n vem instaladaas por padrão.
+
+o comando npm run entra no arquivo json e busca pela chave escrita em sequencia do comando, neste caso o "dev" que irá rodar o vite
+
+após isso recebemos um url do vite que nos da a possibilidade de acessar uma aba com o template da tecnologia pedida atraves do comando de create.
+
+ctrl + k + o --> permite mudar a pastaa em que o vscode se encontra.
+
+
+
+PASTAS DA APLICAÇÃO
+
+public -> apenas carrega a imagem do vite, pode ser apagada.
+src -> contém os principais arquivos da aplicação.
+app.css -> é a parte de estilização, que pode ser apagada.
+app.jsx -> será o segundo arquivo mais importante, nele serão apagados os imports, const e tudo dentro da tag html que está no return, 
+tudo será apagado pois esses códigos são apenas a forma que o vite encontrou de criar o template com sua aplicação.
+index.css -> será utilizado para as estilizações do projeto.
+main.jsx -> é o arquivo principal da aplicação.
+
+
+
+No html, vemos poucos conteúdo, porém com um script referenciando um componente, isso porque o react trabalha com componentes,
+se o código fosse do tipo vanilla, teria de ser escrito linha por linha no html o que geraria um código massivo,
+porém ao utilizar o react é possível quebrar em pequenas partes, o que possibilita trabalhar com grupos e a reutilização dos componentes.
+
+
+
+
+Entrando em main.jsx é possível ver várias importações, onde algumas são escritas da seguinte forma:
+
+import { StrictMode } from "react"; -> o que está escrito entre chaves é o que será importado, seguido de from e o local da importação.
+
+outro caso,
+
+import "./index.css"; -> nesse caso ele importa tudo, ou seja, toda a estilização do arquivo css.
+
+
+
+
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+Este comando está criando a raíz da página no elemento com id root e está renderizando o que está dentro da função.
+Além disso, o App que está sendo utilizado é justamente o App que foi importado de './App.jsx'.
+
+Apesar da forma de escrita lembrar html, isso não é o mesmo, essa é a forma de escrita do jsx, que é meio que um JavaScript com uma sintaxe
+a mais, o que lembra html. Isso é uma maneira útil de escrever menos html e aproveitar melhor o poder da linguagem de programação do JS.
+
+
+
+
+
+
+O App é um componente em react, e todos os componentes são funções, no caso App é uma função que retorna um valor que será importado no main
+e renderizado no html.
+
+No App.jsx o export default App permite que usemos o App em vários lugares do nosso código.
+além disso, o default significa que App é a exportação padrãao e com isso é possível importar ele alterando o seu nome no arquivo de importação
+com isso é possível colocar um nome que corresponda com a aplicação, porém se não tiver o default, isso não será possível.
+
+No react assim como no JS é presado escrever funções arrow function, com a extensão ES7 + react é possível escrevê-lo como um atalho:
+rafce.
+
+Cria-se componentes em diferentes arquivos, onde a forma de escrita de seus nomes PascalCase "DestaForma".
+
+É uma boa prática criar uma pasta chamada components para colocar todos os componentes jsx.
+
+export default, posso importar com qualquer nome e sem chaves 
+export "sem default", só posso importar entre chaves e com o nome exportado
+
+Quando for usar um componente importado, é necessário utilizá-lo entre tags, pois senão ele será entendido como variável, existem duas formas
+de escrever as tags:
+normal -> <Header></Header> (normalmente usado quando tiver conteúdo na tag).
+Self closing tag -> <Header /> (usado quando a tag ficar vazia).
+
+A forma de escrever variáveis, funções... em jsx é da forma camelCase "tipoAssim".
+
+Para utilizar uma imagem no jsx é necessário importala como nos outros casos, passando um nome de variavel para ela e de onde está sendo tirada.
+
+Para escrever jsx no html é necessário escrever entre chaves para assim o html iddentificar que aquilo é uma variável.
+
+A grande vantagem do react que é perceptível no seu próprio nome é a velocidade de reação a estímulos, tanto em códigos grandes quanto pqns.
+
+"/" no link -> volta para home page.
+
+A primeira coisa a se fazer no CSS é resetar os estilos, pois o navegador já trás algumas estilisações por padrão (user agent stylesheet).
+tira-se a margin, o padding e muda-se o box-sizing para border-box.
+
+TODO ARQUIVO DE CSS VAI TER O RESET POIS É EXTREMAMENTE IMPORTANTE.
+
+Quando no body você coloca o elemento color, ele se refere a cor da fonte de body.
+
+Caso vc queria que a cor do link siga o padrão da página sem ter que repetir o comando, pode-se usar o valor inherit, que diz para o
+elemento herdar a cor que ele deveria herdar por padrão.
+
+É no arquivo main.jsx que é importado o index.css, responsável pelas estilizações.
+
+Apesar de correto, não é uma boa prática não é correto identificar elementos através de id no css, e sim através de classes
+
+A forma correta de adicionar uma classe no html em aplicações jsx é usar o className, que funciona da mesma forma. Ele é utilizado pois
+a palavra class ja é reservada para o jsx.
+
+
+
+
+
+FLEX-BOX
+
+a propiredade align-itens altera a posição dos itens na vertical.
+a propriedade justify-content altera a posição dos itens na horizontal.
+justify-content: space-between -> coloca cada elemento em um canto distribuindo igualmente seu espaço.
+
+
+
+
+Uma forma muito boa de declarar uma classe dentro de um bloco no css é com a metodologia BEM (Blocks Elements Modifiers), que nos dá a 
+possibilidade de visualizar com mais facilidade o intuito daquela classe, ele é composto por:
+
+bloco__elemento--modificador
+
+Todos o componentes são importados no App.jsx que no fim é importado para main.jsx.
+
+O react permite que seja devolvido apenas um elemento, por isso caso queira retornar mais de um componente em react é necessário usar:
+
+Fragment, que são as tags vazias <></>.
+
+Na página, tem apenas um h1.
+
+Um problema no decorrer da aula é o elemento não estar pegando o espaço inteiro da tela, nesse caso, o root não está pegando todo espaço da
+tela disponível, e está bem pequeno.
+
+Para resolver esse problema, precisamos alterar o tamanho (height) do root. A propriedade que nos permite pegar 100% da tela é o vh (viewport)
+que nos permite pegar o tamanho da tela, porém uma nova propriedade que é mais efetiva é o svh, que é mais responsivo com dispositivos
+mobile por exemplo, onde a barra de navegação some ao rolar a tela.
+
+Para fazer o main pegar todo restante da tela. Primeiramente é necessário mudar o display do root para flex para abusar de uma propriedade.
+
+Agora é possível utilizar a propriedade flex, que tem várias funções, mas uma delas é usar o flex: 1, que permite que o item se expanda
+o máximo possível dentre o container pai.
+
+A propriedade flex: 1, será utilizada dentro do item que queremos expandir.
+
+Em css na declaração de nomes, palavras separadas são separadas por "-".
+
