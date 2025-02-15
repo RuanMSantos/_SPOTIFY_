@@ -175,3 +175,44 @@ A propriedade flex: 1, será utilizada dentro do item que queremos expandir.
 
 Em css na declaração de nomes, palavras separadas são separadas por "-".
 
+Agora, no main, os textos do main não ficam soltos diretamente, é criado uma div, pois esses textos são um header da div item-list.
+
+dentro dessa div, deve-se ter também, o single-item, que é um item individual, como o artista por exemplo.
+
+o single-item contém uma imagem, um título, um subtítulo e um botão de play.
+
+Para pegar o ícone do botão, será utilizado o site Font awesome, nele, entre em docs e view the docs.
+
+Após isso, integrations, React, Set Up with React (lá contém todo o passo a passo do que é necessário fazer).
+
+Rode os comando no terminal.
+
+Na segunda opção, escolha o free kkkkkkkkkkk.
+
+Agora procure os ícones e entre no free open source, ao encontrar clique nele e vá na opção de React.
+
+Ela te retornará UM COMPONENTE chamado FontAwesomeIcon com um atributo icon com o link do ícone. (esse componente foi obtido ao instalar
+as extensões anteriormente).
+
+O ícone vai antes dos textos.
+
+Porém ao colar no código, ele não irá funcionar, pois é necessário importá-lo. Detalhe, ele não é default então deeve ser importado entre
+chaves.
+
+a importação e o componente ficariam dessa forma, respectivamente:
+import { FontAwesomeIcon } (lembrando que o nome da importação é igual ao nome do componente a ser utilizado) from "@fortawesome/react-fontawesome".
+
+Outra forma de importar é através do individuaal import, que importa tanto o componente FontAwesomeIcon quanto o ícone como se fosse uma imagem.
+
+após colocá-lo é necessário adicionar outro import. import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+
+por já ter importado o outro a cima, ele já completa a importação pra vc, apenas digitando import e o nome do icon escrito no componente.
+
+Agora é só adicionar as classes já criada no css completo.
+
+Caso n estivesse usando react, para ter vários artistas por exemplo, teriam que repetir o código várias vezes, criando um html imenso.
+Mais pra frente iremos aprender como minimizar isso.
+
+Também existe uma classe que é um container para usar grid e conter todos os itens dentro dela.
+
+Agora, fazendo da forma errada por enquanto, é só copiar o item-list que é exatamente igual, para ter as principais músicas
