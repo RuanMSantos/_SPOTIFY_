@@ -1,0 +1,20 @@
+Refatorar -> Tornar o código melhor, e mais eficiente fazendo exatamente a mesma função de antes.
+
+Para refatorar o Main que estava cheio de código duplicado é necessário criar um componente onde será colocado o item-list (lista de itens)
+desta forma, no main será necessário apenas chamar o componente ItemList.
+
+Com o componente criado, é necessário importá-lo para o Main e chamá-lo, nesse caso usando Self closing tag.
+
+Depois disso, podemos recortar a div item-list do main e colá-la no Item-list.
+
+Porém, temos um erro de referência. O FontAwesome não foi importado no ItemList, então é necessário importá-lo.
+
+Quando você usa os componente da forma correta, tudo é usado da forma que deveria, tornando o código muito mais limpo e não tendo excesso de
+imports em um arquivo.
+
+Agora restaram apenas dois componentes importados no Main, com isso, eles são iguais, porém não é o que queremos, por isso temos que passar 
+algumas informações que os diferenciam.
+
+Mass antes teos que melhorar o componente ItemList.
+
+-- 00:28:16 --
