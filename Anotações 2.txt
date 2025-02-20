@@ -17,4 +17,81 @@ algumas informações que os diferenciam.
 
 Mass antes teos que melhorar o componente ItemList.
 
--- 00:28:16 --
+O próximo componente que pode ser encontrado dentro de ItemList é o single-item, que também receberá seu arquivo específico.
+
+Agora o código melhora drasticamente, onde no ItemList apenas importamos o componente 5 vezes, assim como no Main importamos o ItemList
+2 vezes.
+
+Agora, precisamos diferenciar os dois ItemList, passando informações a eles.
+Para isso, os componentes recebem "props", que nada mais são que os parâmetros de uma função, pois o componente nada mais é que 
+uma função.
+
+Esses props entram no componente de forma semelhante aos atributos do html, exemplo: "<ItemList title="Artistas" />".
+
+Apesar de parecido com os atributos html não são a mesma coisa.
+
+O <StrictMode /> que está no main.jsx tem a função de renderizar duas vezes o seu programa, dessa forma o torna mais robusto e deixa mais
+aparente seus erros os duplicando e testa seu código, ele serve apenas na produção e não entra no produto final.
+
+Para acessar todos os props em uma função, basta passar o parâmetro props, agora podemos usar console.log(props), por exemplo, que
+retornará um objeto com os valores.
+
+Como o props foi passado no ItemList, deve ser acessado dentro do componente/função ItemList.
+
+Para acessar a chave no objeto temos duas formas, primeira mente podemos guardar o obj em uma variavel -> const obj = { title: Artistas }.
+Após isso, temos as duas formas de acessar a chave:
+obj.title
+obj["title"]
+
+Então, para acessar esses valores na função usariamos o props, exemplo:
+
+const ItemList = (props) => {
+	console.log(props.title);
+};
+
+Porém, essa forma não é usual, pois no props podem ter muitos valores, pois ele é um objeto.
+
+Com isso usamos o conceito de desestruturação, que consiste em pegar apenas uma parte do objeto. Isso já foi apresentado anteriormente,
+nos imports, como no exemplo: 
+
+import { StrictMode } from "react";
+
+Aqui estamos pegando apenas o StrictMode do objeto react.
+
+No exemplo de uma variavel ficaria: const { title } = { title: "Artistas" } (Pegamos apenas o title do obj).
+
+Então dentro do componente a forma de escrita fica facil e resumida:
+
+const ItemList = ({title}) => {
+	console.log(title);
+};
+
+Dessa forma estou pegando apenas o title do props.
+
+Agora substituindo o que estava escrito no título do item list pela variavel, desta forma:
+<h2>{title} populares</h2>
+funcionará corretamente, lembrando que para escrever js no html em react, usasse chaves.
+
+A aplicação funcionou pois agora ele está exibindo a variável title, que foi alterada em cada exibição no componente chamado no main.
+
+Agora, precisamos também passar a quantidade de itens que existirá em cada um, pois não são iguais, aqui funciona da mesma forma, porém
+com um pequeno detalhe, não queremos passar o props como string, pra isso temos que escrever entre chaves ao inves de aspas,
+assim ele entende que é um elemento js e não um html que são texto. Ficaria assim: items={10}.
+
+Após isso temos que importá-lo na function, para isso é simples, apenas colocar a variavel separada por vírgula.
+const ItemList = ({title, items}) => {
+	console.log(items);
+};
+
+Uma forma de resolver o problema seria com o operador ternário:
+<div>
+{ items === 5 ? (repete o componente 5 vezes) : (repete o componente 10 vezes); }
+(lembrando que temos que colocar as chaves pois é js, e quando formos retornar os componentes será necessário colocá-lo em um fragmento
+<></>)
+</div>
+
+Porém, essa forma foi só um exemplo, pois não é nada funcional.
+
+Também é possível fazer isso utilizando o for.
+
+-- 01:10:45 --
