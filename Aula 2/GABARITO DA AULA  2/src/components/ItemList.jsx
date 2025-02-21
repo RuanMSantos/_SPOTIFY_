@@ -12,11 +12,11 @@ const ItemList = ({ title, items }) => {
       </div>
 
       <div className="item-list__container">
-        <SingleItem />
-        <SingleItem />
-        <SingleItem />
-        <SingleItem />
-        <SingleItem />
+        {Array(items)
+          .fill()
+          .map((currentValue, index) => (
+            <SingleItem key={`${title}-${index}`} />
+          ))}
       </div>
     </div>
   );

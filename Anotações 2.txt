@@ -94,4 +94,54 @@ Porém, essa forma foi só um exemplo, pois não é nada funcional.
 
 Também é possível fazer isso utilizando o for.
 
--- 01:10:45 --
+Outra for de utilizar laços no js é utilizando o map, vamos dar um exemplo com array:
+const myArray = [1, 2, 3, 4, 5];
+myArray.map(() => {});
+
+O map entra em cada elemento e faz para cada um deles o que for determinado na função.
+Uma vantagem do map, é que ele ja te da um outro array, diferente do for comum, a não ser que você o crie.
+
+myArray.map((currentValue, index) => currentValue);
+
+currentValue é o próprio valor do elemento, nesse caso em cada passagem ele veria o valor do elemento e o retornaria, assim como é possível
+manipulá-los.
+
+Com isso, podemos usar um map e um array que tenha um tamanho exatamente igual ao meu items para retornar em cada passagem, o single item.
+
+Utilizando Array(5), cria-se um array de tamanho 5, porém o valor de todas as posições é empty, o que nos empede de usar o map.
+
+Com isso precisamos fazer com que as posições tenham algum valor, mesmo que seja undefined. Para isso podemos escrevem da seguinte forma,
+ja utilizando item:
+
+Array(item).fill().map(() => {});
+
+fill() -> preencher.
+
+{Array(items).fill().map(() => <SingleItem />)}
+
+Agora escrevendo dessa forma tudo funciona perfeitamente e de forma dinâmica.
+
+Escrito entre chaves pois é js, Array(items) dita o tamanho do array, fill preenche as posições, map retorna para cada índice um componente.
+
+Após aplicar, acontecerá um erro, o react pede para que você defina chaves únicas como prop para cada componente que foi retornado no array,
+com isso facilita e aumenta ainda mais a velocidade e precisão nas renderizações e alterações do react.
+
+Esse prop será chamado de key.
+
+Para isso, pode se usar o índice do array no componente:
+{Array(items).fill().map((currentValue, index) => <SingleItem key={index} />)}
+porém acaba não se tornando único pelo fato de nos dois Item list existirem os mesmos índices.
+
+Para isso podemos juntar o title com o índice, dessa forma tornando-o único.
+
+É possível de duas formas:
+{Array(items).fill().map((currentValue, index) => <SingleItem key={title + index} />)}
+Porém concatenar acaba não sendo muito usual, por isso será usado o template string.
+
+`${title}-${index}`, dessa forma. (Artistas0 - exemplo).
+
+NÃO ESQUEÇA DE COLOCAR O CURRENTVALUE NO MAP, MESMO QUE USE SÓ O INDEX.
+
+A partir daqui a dispozição do código ja melhorou absurdamente.
+
+-- 01:30:54 --
