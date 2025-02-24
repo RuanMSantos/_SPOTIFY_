@@ -135,13 +135,207 @@ porém acaba não se tornando único pelo fato de nos dois Item list existirem o
 Para isso podemos juntar o title com o índice, dessa forma tornando-o único.
 
 É possível de duas formas:
-{Array(items).fill().map((currentValue, index) => <SingleItem key={title + index} />)}
+{Array(items).fill().map((currentValue, index) => (<SingleItem key={title + index} />))}
 Porém concatenar acaba não sendo muito usual, por isso será usado o template string.
 
-`${title}-${index}`, dessa forma. (Artistas0 - exemplo).
+`${title}-${index}`, dessa forma. (Artistas-0 - exemplo).
 
 NÃO ESQUEÇA DE COLOCAR O CURRENTVALUE NO MAP, MESMO QUE USE SÓ O INDEX.
 
 A partir daqui a dispozição do código ja melhorou absurdamente.
 
--- 01:30:54 --
+Existem dois documentos .js que contém informações, um sobre artistas e um sobre músicas. Esses asquivos contém um array de objetos com 
+informações sobre determinado assunto.
+
+Quando exportamos um componente, sem ser default, é necessário colocá-lo entre chaves, pos estamos exportando um objeto, também é
+necessário passar quais chaves dele serão exportadas.
+
+Nos arquivos js também é possível exportar da mesma forma, porém uma terceira forma de exportar, é colocando o export antes do que será 
+exportado.
+export const artistArray = [{}];
+
+Por padrão exporta-se componentes no final.
+
+O import com chaves, geralmente está relacionado em pegar algo de um arquivo específico e não de um objeto, com isso é possível usar
+vírgula e colocar vários imports dentro da chave.
+
+Agora ao invés de usar Array(items) para retornart uma quantidade de itens, usaremos o array de artistas. Com isso teremos um pequeno erro,
+como não limitamos o array, serão retornados a quantidade de índices que existem no array.
+
+Para isso, antes de mapear, precisamos filtrar a quantidade que queremos ter. O comando filter funciona a partir de uma condição,
+mantendo apenas o verdadeiro. 
+
+Com isso, usaremos o filter e só após o map que retorna um array, e para cada índice faz algo.
+
+Dessa forma, garantimos que todos os itens estão sendo puxados, porém, nem todos estão sendo exibidos.
+
+{artistArray
+          .filter((currentValue, index) => index < items)
+          .map((currentValue, index) => (
+            <SingleItem key={`${title}-${index}`} />
+          ))}
+
+O filter retorna uma função da mesma forma que o map, com isso é possível puxar o currentValue e index, conforme, serão filtrados a quantidade
+de índices que forem menor que a props items, com isso garantindo a quantidade exata.
+
+Vamos mudar o nome do currentValue do map, para ficar mais intuitivo, não é obrigatório ter o mesmo nome sempre.
+
+O currentValue retorna o próprio elemento, então no caso de retornar um objeto, é posssível acessar suas chaves.
+Enquanto o index é responsável por retornar a posição do elemento no array.
+
+Agora, passamos os valores das chaves como props no SingleItem, para assim acessar as informações em seu arquivo.
+
+Existem duas formas, a primeira é passar tudo de forma manual:
+
+<SingleItem
+              id={currObj.id}
+              name={currObj.name}
+              image={currObj.image}
+              banner={currObj.banner}
+              key={`${title}-${index}`}
+            />\
+
+Nesse caso, para cada índice do array, será pego seu próprio id, name, image e banner.
+
+Agora, no SingleItem, colocaremos entre chaves os nomes das props, para assim conseguir acessá-las no componente.
+
+Agora que já adicionados, colocaremos eu seus devidos lugares, como por exemplo, na tag h2 que fica o nome, entra a props name.
+
+Um exemplo legal, é no src do img, que entra o props {image}, que nada mais é que dentro do obj, um link da imagem.
+
+Dessa forma, ja temos um resultado. Todos os itens já tem um artista, foto e nome, porém, um pequeno problema, na parte de músicas está
+sendo exibido artistas.
+
+Isso ocorre porque no ItemList esta sempre sendo puxado o artistArray, o que não diferencia as músicas de artistas.
+
+Agora vamos aprender a forma mais pratica de criar os props do SingleItem.
+
+Como ja sabemos, dizer que uma váriavel tem o mesmo valor de um obj, apenas cria um endereço nela, o que torna possível alterar o obj
+através dela. Isso geralmente não é uma boa prática, para pegar os valores usamos um novo operador:
+
+Spread operator (...).
+
+Com isso podemos escrever por exemplo:
+
+const obj = {name: "objeto"};
+
+const objNovo = {...obj}.
+
+Escrevendo entre chaves e com 3 pontos antes, utilizamos o Spread operator, que nos permite invez de criar um endereço, criar uma
+variavel com os mesmos valores do objeto. Agora mudar o valor da variavel não altera o valor do outro objeto
+
+ISSO TAMBÉM FUNCIONA COM ARRAY.
+
+Com isso, agora no props, invez de passar quatro valores diferentes, criamos apenas um props, que vai ser o objeto inteiro.
+
+<SingleItem {...currObj} key={`${title}-${index}`} />
+
+Dessa forma eu retorno o objeto inteiro, que é o próprio currentValue, é necessário usar o Spread operator, pois criamos uma prop
+com os mesmos valores do obj, e utilizar apenas um endereço gera um erro.
+
+No fim, os props são recebidos da mesma forma no componente, com o nome igual as chaves.`
+
+Agora para resolver o problema de diferenciação entre as listas, mimportamos os dois arrays, criamos um props onde cada componente vai 
+receber um array diferente, e só usamos esse props no componente do SingleIem, simplesmente assim.
+
+Criamos a props items array e colocamos os arrays dentro deles: itemsArray={artistArray}.
+
+Porém, só fazer isso não vai funcionar, pois temos que utilizá-lo no componente. Agora é só passar seu nome como parâmetreo entre chaves,
+e substituir o array anterior.
+
+Agora, temos outro problema para resolver. Tirar o nome "artista", das músicas.
+
+Os dois objetos tem algumas diferenças, o objeto de artista não tem a chave artist por exemplo. Com isso podemos puxar essa props no componente 
+SingleItem.
+
+A props recebida por ele é um objeto, (um dos dois) com isso pode ou não ter essa chave. Caso não tenha, ela virá com o valor undefined.
+
+Com essa lógica, podemos usar o operador ternário, onde: {artist === undefined ? "Artista" : artist}
+
+Se o valor da chave artist for undefined, significa que estamos no objeto artista, então mostre "Artista", se não exiba o valor da chave
+artist, que contém o nome do artista.
+
+Porém, fazer dessa forma é muito repetitivo, então existe uma forma melhor.
+
+{artist ?? "Artista"}
+
+os dois sinais de interrogação testam se aquilo existe, se sim usa ele, se não usa "Artista".
+
+Sabemos que quando testamos um valor sem passar uma condição ele retorna verdadeiro ou faço com base no valor ser vazio ou existente.
+
+Agora temos um código mil vezes melhor.
+
+Porém, temos outro problema, na verdade o item é um link que nos leva para outro lugar, com isso temos que mudar no componente.
+
+Uma vantagem absurda é que, por estarmos usando componentes é necessários alterar apenas uma vez que todos serão alterados.
+
+Apenas transformamos a div principal em link que tudo da certo, passamos também seu href.
+
+Agora todo o componente é um link.
+
+Agora vamos colocar link no mostrar tudo.
+
+Os dois normalmente levariam para o mesmo lugar, por isso teremos que usar props, dessa vez não é necessário ser em js, como é um link podemos
+apenas escrever em texto.
+
+O nome do prop vai ser path (caminho). -> exemplo: path="/songs".
+
+A barra no link, significa que vai ser adicionada uma barra antes do link na url.
+
+Agora é só usar a variável no href.
+
+Agora vamos colocar links nos itens. Os links são acompanhados por artist ou song e o id.
+
+Para isso criamos uma prop no ItemList com o link da primeira parte (exemplo: song).
+
+Agora algo interessante acontece, o link precisa chegar no SingleItem, para isso utilizamos o ItemList apenas para enviar essa informação
+para o SingleItem. É só importar no ItemList e criar um prop no SingleItem com o nome dessa variavel.
+
+Ampas as props tem o mesmo nome, para facilitar.
+
+Agora no link do SingleItem, Pssamos o idPath que é primeiro nome, e o id do obj que ja foi importado como prop. (href={`${idPath}/${id}`}).
+
+Agora tudo esta certo (exemplo: artist/4).
+
+Porém existe um problema, quando clicamos em um link ele recarrega a página e tamém não muda as coisas de lugar. Recarregar a página acaba com
+a magia do react, o correto é ele apenas rerrenderizar as páginas, mantendo sua alta velocidade.
+
+Para arrumar isso precisamos mexer no App, criando uma estrutura de páginas.
+
+Precisamos instalar um pacote que nos permite fazer isso.
+
+npm i react-router-dom
+
+Essa biblioteca vai permitir criar as rotas das páginas diferentes que vamos fazer.
+
+Agora precisamos importar.
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+Routes -> São minhas rotas
+Route -> É uma rota específica
+
+Toda estrutura de rotas precisa estar envolvida em um <BrowserRouter><BrowserRouter/>
+
+Que vai gerenciar minhas rotas.
+
+Agora dentro de src podemos criar a pasta pages, que irá conter todas as nossas páginas.
+
+A única página que temos criada até agora é a Home, que contém o "header" e o Main.
+
+Porém o header é algo comum em todas as páginas, por conta disso vai ficar de fora do esquema de rotas, então a única coisa que 
+vamos ter é o main.
+
+Com isso vamos importar o componente Main dentro do Home e retorná-lo na função.
+
+Caso tivesse mais algum componente exclusivo do home, poderiamos retorná-lo na função também.
+
+Agora ao invés de retornar o Compenente no app, retornaremos a página, o componente ficará apenas dentro de onde ele precisa estar.
+
+Já no app, o Header vai ficar fora do sistema de rotas, mas dentro do BrowserRouter.
+
+Dentro do BrowserRouter temos as Routes que são as rotas que vão involver todos que vão ficar la dentro que são as rotas específicas.
+
+Dentro das Routes ficam as Route (rota específica).
+
+-- 02:13:00 --
