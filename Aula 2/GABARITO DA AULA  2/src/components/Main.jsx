@@ -21,7 +21,7 @@ const Main = () => {
         items={10}
         itemsArray={songsArray}
         path="/songs"
-        idPath="song"
+        idPath="/song"
       />
     </div>
   );

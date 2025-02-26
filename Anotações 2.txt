@@ -338,4 +338,34 @@ Dentro do BrowserRouter temos as Routes que são as rotas que vão involver todo
 
 Dentro das Routes ficam as Route (rota específica).
 
--- 02:13:00 --
+Na route temos que passar duas informações, qual é o caminho específico daquela rota (url) e qual componente será renderizado quando
+entrarmos na url, que neste caso é a página home.
+
+        <Route path="/" element={<Home />} />
+
+Não esqueça de importar Home.
+
+Agora o Main se torna inútil em app, pois ele já está onde deveria, no Home por exemplo.
+
+Após isso, temos que fazer o mesmo com todas as pages, passar sua url de resposta e qual componente/page será renderizado.
+
+Porém tem um detalhe as páginas /artist e /song são sempre acessadas acompanhadas de um id, para representar o id ao inves do texto
+"id" é necessário colocá-lo acompanhado de dois pontos, ficando assim: /:id -> /artist/:id. Com esses pontos, o url entende que o que entra ali
+será uma variavel iddentificada como id.
+
+Lembrando que o header existirá em cada uma das páginas, pois ele está fora do esquema de rotas.
+
+Para explicar melho como funciona, o link é descrito no SingleItem, ele especifica qual o link daquele elemento, já nas Rotas, exista a rota
+que atende a essa url, dizendo que se caso a url for a mesma do SingleItem juntamente do id, iremos chegar naquela página.
+
+Pra finalizar, falta apenas uma coisa, toda vez que entrammos em uma nova url, essa url atualiza a página, o que estraga o react, isso
+ocorre pois estamos usando uma âncora (<a></a>), para resolvermos isso, precisamos utilizar a "âncora" do react-router-dom, que nos permite
+navegar entre as páginas por dentro do documento, apenas renderizando novamente o que é necessário sem atualizar a página, extraindo o suco do
+react.
+
+Para fazer isso é bem fácil, apenas trocar todas as "âncoras" por "Link" e todos os "href" por "to", porém sem esquecer de importar:
+
+import { Link } from "react-router-dom";
+
+Ctrl + Shift + f -> pesquisar por todo documento
+
