@@ -1,0 +1,336 @@
+Agora, iremos desenvolver as outras telas.
+
+A tela de artistas é praticamente igual a home, o que muda é que não temos o mostrar tudo e são exibidos todos os artistas, com isso,
+podemos reutilizar o componente Main na pagina de artistas.
+
+Porém, ele vai duplicar exatamente a página inteira. Para tornar a página específica, precisamos utilizar as props no Main, para dizer
+para retornar apenas o que queremos em diferentes casos.
+
+Como ja vimos antes, colocaremos um props no Main da página artist, type="artists", em sequencia o puxaremos no componente Main atraves da
+desestruturação (chamar uma props).
+
+Com isso usaremos a lógica: Se o tipo for artista, exiba só artistas, se o tipo for musica, exiba só musicas, se não existir tipo, mostre
+tudo.
+
+Para isso usaremos o operador ternário, onde, se caso type for igual a "artists" retorne o ItemList de artista, se não, retorne vazio <></>
+
+Com isso, garantimos que teremos apenas o ItemList desejado, se for um não é o outro, com isso garantimos a página específica.
+
+Porém temos um problema, dessa forma perdemos a página home, pois nunca serão exibidos os dois ItemList juntos.
+
+Fazemos o mesmo na página songs com o type="songs"
+
+O problema na home acontece pois quando não passamos o valor do props type no componente Main do home, o valor de type é undefined,
+e ele não se encaixa em nenhuma das decisões do componente Main.
+
+Para resolver esse problema, uma forma muito eficiente é adicionar "ou" na comparação, desta forma, ele exibirá o componente se
+o valor for o que ja tinha sido designado, ou se o valor for undefined, dessa forma, garantimos que se caso for undefined, os dois componentes
+aparecerão.
+
+Além disso, quando estivermos na página  específica, o teremos apenas o componente desejado, pois se type for "artists" por exemplo
+não poderá ser nem undefined nem "songs".
+
+Independente da página, está sempre sendo exibido o mostrar tudo e nas páginas específicas não mostra todos os itens.
+
+Para resolver isso temos que importar outra funcionalidade do "react-router-dom", o useLocation.
+
+useLocation é uma função que retorna um objeto com algumas informações, uma delas é o pathname que é o caminho da página.
+
+Queremos pegar apenas o caminho, para isso chamamos a função e pegamos a chave pathname -> const pathname = useLocation().pathname;
+
+Em todas as páginas a função vai retornar seu caminho, pois o componente está sendo usado em todas.
+
+Porém uma forma mais intuitiva de  fazer isso é usando a desestruturação onde pegamos pathname de useLocation().
+const { pathname } = useLocation();
+
+Agora podemos comparar se estamos na página home = "/"
+
+Para ficar mais limpo podemos criar uma variável que contém a comparação e retorna um booleano -> isHome = pathname === "/";
+
+Se caso for verdadeiro, mostraremos o mostrar tudo, caso não, fragmento vazio. Garantindo que mostraremos apenas quando necessário.
+
+Para resolver o problema da quantidade de itens exibidos, podemos criar uma variavel que trata a quantidade de itens a ser exibida,
+sem ter que alterar aquela lógica la de baixo.
+
+let finalItems;
+isHome ? (finalItems = items) : (finalItems = Infinity);
+
+se estivermos na home, o valor de finalItems vai ser o valor da props item que foi definida no Main,
+se não estivermos, será  exibido infinito, que é um valor pronto do js, o que garante que ixibirá todos os elementos do array de objetos.
+
+porém isso não é muito eficiente, por isso mudaremos a estrutura.
+
+finalItems = isHome ? items :  Infinity;
+
+Dessa forma ja passamos o valor do finalItems direto, onde se estivermos no home o valor é items se não é infinty, o que deixa o código
+MUITO MELHOR.
+
+Com isso podemos definir finalItems como const.
+
+Agora, substituímos as variáveis no filter, onde antes tinhamos a props direta, agora colocaremos o valor tratado (finalItems).
+
+PRONTO, temos as tres primeiras páginas completas, todas respeitando a quantidade de items que devem ser exibidos e se terá o mostrar tudo,
+ou não.
+
+Por estarmos usando componentes, conseguimos resolver o problema rapidamente apenas alterando algumas coisas por conta das páginas sererm 
+parecidas, e dessa forma já resolvemos o problema dessas tres páginas.
+
+Agora iremos começar a desenvolver a página de artista específico.
+
+A primeira coisa que temso que fazer é criar o componente com as informações necessárias que teremos nele.
+
+Agora precisamos desenvolver o caomponente em artist, onde teremos o header, o body, o botão
+
+As primeira divs são criadas normalmente e o botão ja existe e foi utilizado nos itens, então, podemos pegá-lo e reutilizá-lo,
+onde não podemos esquecer do import.
+
+Precisamos adicionar no icon uma outra classe além daquela, que é um modificador que foi desenvolvido na aula complementar.
+
+A imagem é um link, então precisamos importar Link e utilizá-lo.
+
+Ao clicar no botão de play, seremos direcionados para songs/(id), depois adicionaremos lógica a isso porem agr deixaremos 1.
+
+A imagem do artista que está fixa na página, está declarada no css, o que é um problema, pois dessa forma não conseguiremos usá-la
+dinamicamente, com isso traremos essa declaração para dentro do jsx.
+
+Para mexer nas estilizações por dentro do jsx, utilizamos a propriedade style, que é seguida por uma chave pra escrever em js e uma
+chave referente ao seletor do css,
+
+style={ { position: relative; } }
+
+porém a forma de escrita n é igual ao css, background-image(kebab-case).
+
+Agora pegamos a propriedade backgroundImage e colamos o que estava em background-image no css, não esqueça de colocar tudo entre aspas.
+
+Colocamos a propriedade style dentro do jsx pois mais pra frente mudaremos as imagens dinamicamente conforme o artista.
+
+Precisamos colocar o título que ainda n existe, em <h2></h2>
+
+Colocando o título dentro da div header e sua classe, ja temos a formatação correta.
+
+Agora no body podemos ver alguns detalhes, temos o título populares seguido de um componente que é uma lista de songs e um componente song.
+o ver mais também está dentro do songList.
+
+Adicionamos o subtítulo e logo após criamos o componente e o chamamos no body.
+
+Agora dentro do componente SongList, criamos uma div e dentro dela teremos o componente SongItem, que vamos criar agora.
+
+O SongItem na verdade é um link e não uma div, com isso devemos trocar.
+
+O link levará para a música específica, adicionaremos a lógica depois.
+
+Dentro do componente temos o índice, a imagem, o nome, e a duração. Colocaremos isso no componente.
+
+Após colocá-los precisamos adicionar as classes, onde serão necessários criar divs para agrupar alguns elementos para que fiquem todos,
+distribuídos corretamente.
+
+Agora no SongList duplicamos o componente SongItem 4 vezes para poder adicionar o ver mais.
+
+Agora começaremos a desenvolver a página de música específica.
+
+Dentro do componente song, teremos um container, um container da imagem, a barra, a imagem do artista no canto da barra, e o song-name.
+
+Dentro da barra existe um player que é também um componente que contém suas proprias regras.
+
+Agora já distribuímos as classes e a estrutura devidamente, porém mesmo com a classe a imagem continua rande, com isso podemos mexer, 
+direto na sua propriedade no html, note que não é css, é diretamente em uma propriedade da img no html.
+
+width={75}
+heigth={75}
+
+Alteramos usando js no html.
+
+Agora vamos mexer no player, ele contém um botão de voltar, pausar e avançar, além do temporizador de quanto tempo da música passou a brra de
+tempo e quanto tempo da música falta.
+
+Para adicionar os botões, importamos os ícones do font awesome, colocando os tres em sequencia e colocando as classes.
+
+Temos agora a estrutura do bar, dentro darra temos uma div de progresso da barra. Ela funciona a partir de uma variável criada no css,
+que contém o progresso que pode ser aumentado por porcentagem e começa a preencher conforme.
+
+Com isso mais pra frente adicionaremos a inteligência da barra ser preenchida conforme o passar da música.
+
+Para acabar o estruturamento da página falta apenas transformar a imagem do artista em um link que leva para sua página e os botões de,
+voltar e avançãr também são links que levam para a música anterior e próxima música.
+
+Agora estruturamos todas as páginas.
+
+Agora queremos colocar inteligência nas páginas, por exemplo na página de artista, quando a abrimos, queremos que venham as músicas de 
+determinado artista, e é o que vamos fazer agora.
+
+Para isso podemos utilizar a rota da página para pegar o id específico do artista.
+
+Poderiamos fazer isso através do pathname, porém ttem uma forma mais eficiente.
+
+Por conta de nossas rotas já estarem inteligentes, (elas já interpretam que o que vai na rota é um parametro de id).
+
+Para isso temos um método específico, ao inves de usar useLocation, usamos useParams.
+
+Esse método retorna um obj com a propriedade id, que é o parametro que estamos utilizando na rota, e ele traz exatamente o número do id.
+
+LEMBRANDO, useLocation e useParams, são de "react-router-dom".
+
+Agora que temos o número do id, precisamos pegar o obj que contém o id respectivo no array, existem várias formas de fazer isso,
+uma delas é usando for pra percorrer todo o array até achar o id correto.
+
+Porém, vamos fazer filtrando dentro do array, para pegar apenas o obj de id específico.
+
+Precisamos importar o array dentro do componente artist
+
+
+  const artistObj = artistArray.filter((currentArtistObj) => {
+    currentArtistObj.id === Number(id);
+  })[0];
+
+Filtramos dentro do array, em cada passagem retornamos o objeto se seu id, for igual ao id da página, é necessário converter o id da página
+para numero, pois ele vem como string por conta de ser da rota da página.
+
+No fim, retorna-se um array de objetos filtrados, mas como temos só um objeto contendo esse id, seu índice será 0, por isso, podemos pegar,
+apenas o obj do índice 0 desse array filtrado.
+
+O currentArtistObj é o objeto do artista que estamos vendo alí na hora.
+
+Agora conseguimos ter o artista correspondente ao id, com isso ja podemos começar a mexer na página artista.
+
+Começando pelo banner, no style que está o backgroundImage, vamos alterar para ficar o banner do artista que está no nosso obj.
+
+Lembre que precisamos transformar o texto em template string.
+
+Mudamos também o nome do artista para o nome que está no obj.
+
+Agora o banner e nome do artista já são flexíveis.
+
+Já na música que toca quando apertamos no play, precisamos de alguma forma falar que quando apertamos no play, seremos levados pra alguma
+música qualquer do artista.
+
+A única coisa que ainda não muda é as músicas do artista.
+
+Vamos importar agora o array das músicas.
+
+O CURRENT ALGUMA COISA, QUE VEM NO FILTER, É UMA VARIÁVEL DE AMBIENTE QUE O NOME PODE SER DADO POR VOCÊ.
+
+Agora criaremos uma constante que vai funcionar quase do mesmo jeito da outra filtrando as músicas que são de determinado artista.
+
+const songsArrayFromArtist = songsArray.filter(
+    (currentSongObj) => currentSongObj.artist === artistObj.name
+  );
+
+vamos retornar as músicas que tiverem o artista igual o nome do artista, que é do obj acima.
+
+Isso retorna um array de objs com todas as músicas do artista.
+
+Agora precisamos passar a informação como props para o componente, poderiamos desestruturar passando todas as chaves do obj 
+({...songsArrayFromArtist}), porém temos uma lista de objetos.
+
+Por conta disso passamos o array inteiro neste caso.
+
+Criamos uma variavel que terá um numero aleatorio, por enquanto ela tem valor fixo, mas colocaremos ela no caminho do link do play no
+componente Artist.
+
+Para sortear um número aleatório temos a função Math.random() que gera um número aleatório entre 0 e 1.
+
+Com isso, se multiplicarmos por 10, temos um número aleatório entre 0 e 10.
+
+Então vamos multiplicar o número sorteado pelo tamanho do array de músicas -1, pois o índice do array é o tamanho -1
+
+Após isso, arredondamos o valor com -> Math.floor()
+
+Agora trocamos as posições das variaveis e deixamos o número aleatório em cima, pois ele é apenas o índex aleatório,
+
+Após isso o utilizamos para pegar a música aleatória, onde, a variável de id aleatório vai ser o objeto do array de músicas na posição
+do index aleatório.
+
+Com isso queremos pegar o id da música aleatória.
+
+Agora ja temos uma música aleatória do artista correto.
+
+Agora no SongList, utilizaremos a props, que é um array de músicas e para cada música (obj) desse array, retornaremos um SongItem
+com o próprio obj daquele índice como props, ADOTANDO TODAS AS PROPRIEDADES DELE (...currentSongObj).
+
+Com isso, será necessário adicionar uma chave ao componente, usaremos o próprio índice do obj.
+
+Agora já podemos tirar aquele monte de componentes duplicados. 
+
+Com isso, ja serão exibidas todas as músicas do artista, que pela lógica, ja foram englobadas no array.
+
+Agora no SongItem, usaremos as props para distribuir as informações corretamente.
+
+Na hora de colocar o índice, teremos um problema. Não é possível utilizar o key, pois ele é uma chave e não uma props, com isso
+criamos uma props pra conter o índice.
+
+Porém, não queremos exibir as 10 músicas logo de cara, com isso precisamos filtar a quantidade antes de usar o map().
+
+Criamos uam constante com a quantidade de itens que vamos exibir e vamos filtrar o array, para cada passagem pegamos apenas os que o
+índice for menor que a constante.
+
+Agora iremos mexer na página de música e depois voltaremos no ver mais.
+
+A lógica da página de song é praticamente a mesma da de artist. Então podemos reutilizar a lógica de pegar o objeto correto do array atraves
+do id da pagina.
+
+Podemos melhorar o código.
+
+No componente artist, utilizamos as propriedades de artistObj, porém escrevendo o nome da instancia. Para ficar melhor, como sabemos que
+vamos utilizar apenas o nome o a banner, podemos desestruturar.
+
+Não é possível fazer a desestruturação quando a duas diferentes propriedades com o mesmo nome.
+
+Na construção da página de song, precisamos do id do artista, para isso temos uma forma legal.
+
+const artistId = artistArray.filter(
+    (currentArtistObj) => currentArtistObj.name === artist
+  )[0].id;
+
+nesse caso, fazemos todo esse filtro, e no fim retornamos apenas o id do primeiro índice do array, resumindo, todo esse código traz o
+id do artista
+
+Colocamos as informações nos devidos lugares.
+
+Precisamos passar para o componente player a duração da música.
+
+Vamos arrumar o ver mais.
+
+No ver mais, utilizaremos o onClick, NO P, algo que eu não sabia que era possível, para cada vez que cilcar nele, encrementar 5 no valor de
+items, o que aumenta a quantidade de itens exibidos.
+
+Porém, mesmo com isso, não será possével aumentar a quantidade de itens que são exibidos na tela, pois a página não é re-renderizada.
+
+Uma das situações em que o componente é re-renderizado é quando uma variável de estado que está sendo utilizada por ele é atualizada.
+
+Para utilizarmos uma variavel de estado, precisamos utilizar o Hook, e um destes hooks que utilizaremos é o
+
+useState
+
+primeiramente precisamos importá-lo.
+
+Ela é uma função do hook e pode ser utilizada da seguinte forma:
+
+const items = useState(5);
+
+Ao utilizar essa função é retornado um array com dois elementos (índices 0 e 1), um é o valor digitado no parâmetro da função e o outro é
+uma função completa.
+
+Também é possível desestruturar um array e é o que faremos para pegar seus índices separadamente.
+
+Para fazer isso nomeamos as variaveis de acordo com o índice do array:
+
+const [items, setItems] = useState(10);
+
+Utilizamos o nome setItems por conta do que essa função do hook faz pra gente, ela nos permite setar um novo valor para o items.
+(nome da variavel da função -> set + nome da variavel padrão).
+
+Agora ja podemos utilizar items novamente como valor padrão da variavel.
+
+Agora para atualizar o valor, utilizamos a função que desestruturamos passando no parâmetro seu novo valor.
+
+setItems(items + 5);
+
+Como ja sabemos, ao alterar uma variavel de estado todos os componentes que estão a utilizando são atualizados.
+
+Agora, falta colocar a função de voltar e avançar a música no player.
+
+Para isso, optou-se pela opção dos botões trocarem para músicas aleatórias. para isso utilizamos a mesma lógica de gerar um id aleatório,
+então apenas copiamos o código alterando o necessário e passamos ele como props para o player.
+
+No player, alteramos a url com os randoms.
+
